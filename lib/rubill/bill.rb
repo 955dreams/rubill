@@ -14,6 +14,10 @@ module Rubill
       Rubill::Query.execute('/Approve.json', entity: 'Bill', objectId: bill_id)
     end
 
+    def self.pay_bills(pay_bills_object)
+      Rubill::Query.execute('/PayBills.json', pay_bills_object)
+    end
+
     def self.remote_class_name
       "Bill"
     end
