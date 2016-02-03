@@ -6,7 +6,7 @@ module Rubill
   class APIError < StandardError; end
 
   class Session
-    include HTTParty
+    include HTTMultiParty
     include Singleton
 
     attr_accessor :id
@@ -46,11 +46,16 @@ module Rubill
     end
 
     def options(data={})
-      {
-        sessionId: id,
-        devKey: self.class.configuration.dev_key,
-        data: data.to_json,
+      opts = {
+          sessionId: id,
+          devKey: self.class.configuration.dev_key,
       }
+
+      opts[:file] = data.delete(:content) if data.has_key?(:fileName)
+
+      opts[:data] = data.to_json
+
+      opts
     end
 
     def self.default_headers
