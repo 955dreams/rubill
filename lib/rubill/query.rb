@@ -33,6 +33,10 @@ module Rubill
       execute("/Crud/Delete/#{entity}.json", id: id)
     end
 
+    def self.search(entity, term)
+      execute("/SearchEntity.json", entity: entity, term: term)
+    end
+
     def self.pay_bills(opts={})
       execute("/PayBills.json", opts)
     end
